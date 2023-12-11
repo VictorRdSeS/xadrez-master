@@ -3,6 +3,9 @@ package br.com.afsj.model;
 import br.com.afsj.control.Xadrez;
 import br.com.afsj.view.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.*;
 
 public class Tabuleiro {
@@ -22,6 +25,8 @@ public class Tabuleiro {
     //protected static IPeao iPeaoBranco1 = new IPeao(peaoBranco1);
     //protected static Peao peaoBranco2 = new Peao();
     //protected static IPeao iPeaoBranco2 = new IPeao(peaoBranco2);
+    
+    protected static MarcadorAzul[] marcadoresAzuis = new MarcadorAzul[64];
 
     protected static Peao[] peoesBrancos = new Peao[8];
     protected static IPeao[] iPeoesBrancos = new IPeao[8];
@@ -89,6 +94,15 @@ public class Tabuleiro {
 		listaBrancas.add(peaoBranco2);
 
 		*/
+        
+        //Inicializar marcadores
+        for (int i = 0; i < 64; i++)
+        {
+        	marcadoresAzuis[i] = new MarcadorAzul();
+        	marcadoresAzuis[i].setIcone(new ImageIcon("imagens/Marcador.png"));
+        	marcadoresAzuis[i].mover(-1, -1);
+			TELA.getContentPane().add(marcadoresAzuis[i].getImagem());
+        }
 
         for (int i = 0; i < 8; i++) {
             peoesBrancos[i] = new Peao();
@@ -120,7 +134,7 @@ public class Tabuleiro {
         TELA.getContentPane().add(iTorreBranca2.getImagem());
         listaBrancas.add(torreBranca2);
 
-        /*cavaloBranco1.setCor(Xadrez.corBRANCA);
+        cavaloBranco1.setCor(Xadrez.corBRANCA);
         cavaloBranco1.mover(1, 7);
         iCavaloBranco1.setIconeBranco(new ImageIcon("imagens/Cavalo-Brancas-Branco.png"));
         iCavaloBranco1.setIconeMarrom(new ImageIcon("imagens/Cavalo-Brancas-Marrom.png"));
@@ -150,7 +164,7 @@ public class Tabuleiro {
         iBispoBranco2.setIconeMarrom(new ImageIcon("imagens/Bispo-Brancas-Marrom.png"));
         iBispoBranco2.mover(5, 7);
         TELA.getContentPane().add(iBispoBranco2.getImagem());
-        listaBrancas.add(bispoBranco2);*/
+        listaBrancas.add(bispoBranco2);
 
         reiBranco.setCor(Xadrez.corBRANCA);
         reiBranco.mover(4, 7);
@@ -160,13 +174,13 @@ public class Tabuleiro {
         TELA.getContentPane().add(iReiBranco.getImagem());
         listaBrancas.add(reiBranco);
 
-        /*rainhaBranca.setCor(Xadrez.corBRANCA);
+        rainhaBranca.setCor(Xadrez.corBRANCA);
         rainhaBranca.mover(3, 7);
         iRainhaBranca.setIconeBranco(new ImageIcon("imagens/Rainha-Brancas-Branco.png"));
         iRainhaBranca.setIconeMarrom(new ImageIcon("imagens/Rainha-Brancas-Marrom.png"));
         iRainhaBranca.mover(3, 7);
         TELA.getContentPane().add(iRainhaBranca.getImagem());
-        listaBrancas.add(rainhaBranca);*/
+        listaBrancas.add(rainhaBranca);
 
         // Pretas
 
@@ -181,7 +195,7 @@ public class Tabuleiro {
             iPeoesPretos[i].mover(i, 1);
 
             TELA.getContentPane().add(iPeoesPretos[i].getImagem());
-            listaBrancas.add(peoesPretos[i]);
+            listaPretas.add(peoesPretos[i]);
         }
         //peaoPreto1.setCor(Xadrez.corPRETA);
         //peaoPreto1.mover(0, 1);
@@ -197,7 +211,7 @@ public class Tabuleiro {
         iTorrePreta1.setIconeMarrom(new ImageIcon("imagens/Torre-Pretas-Marrom.png"));
         iTorrePreta1.mover(0, 0);
         TELA.getContentPane().add(iTorrePreta1.getImagem());
-        listaBrancas.add(torrePreta1);
+        listaPretas.add(torrePreta1);
 
         torrePreta2.setCor(Xadrez.corPRETA);
         torrePreta2.mover(7, 0);
@@ -205,7 +219,7 @@ public class Tabuleiro {
         iTorrePreta2.setIconeMarrom(new ImageIcon("imagens/Torre-Pretas-Marrom.png"));
         iTorrePreta2.mover(7, 0);
         TELA.getContentPane().add(iTorrePreta2.getImagem());
-        listaBrancas.add(torrePreta2);
+        listaPretas.add(torrePreta2);
 
         cavaloPreto1.setCor(Xadrez.corPRETA);
         cavaloPreto1.mover(1, 0);
@@ -229,15 +243,15 @@ public class Tabuleiro {
         iBispoPreto1.setIconeMarrom(new ImageIcon("imagens/Bispo-Pretas-Marrom.png"));
         iBispoPreto1.mover(2, 0);
         TELA.getContentPane().add(iBispoPreto1.getImagem());
-        listaBrancas.add(bispoPreto1);
+        listaPretas.add(bispoPreto1);
 
-        bispoPreto2.setCor(Xadrez.corBRANCA);
+        bispoPreto2.setCor(Xadrez.corPRETA);
         bispoPreto2.mover(5, 0);
         iBispoPreto2.setIconeBranco(new ImageIcon("imagens/Bispo-Pretas-Branco.png"));
         iBispoPreto2.setIconeMarrom(new ImageIcon("imagens/Bispo-Pretas-Marrom.png"));
         iBispoPreto2.mover(5, 0);
         TELA.getContentPane().add(iBispoPreto2.getImagem());
-        listaBrancas.add(bispoPreto2);
+        listaPretas.add(bispoPreto2);
 
         reiPreto.setCor(Xadrez.corPRETA);
         reiPreto.mover(4, 0);
@@ -245,16 +259,16 @@ public class Tabuleiro {
         iReiPreto.setIconeMarrom(new ImageIcon("imagens/Rei-Pretas-Marrom.png"));
         iReiPreto.mover(4, 0);
         TELA.getContentPane().add(iReiPreto.getImagem());
-        listaBrancas.add(reiPreto);
+        listaPretas.add(reiPreto);
 
-        rainhaPreta.setCor(Xadrez.corBRANCA);//branco = 1 preto = 0
+        rainhaPreta.setCor(Xadrez.corPRETA);//branco = 1 preto = 0
         rainhaPreta.mover(3, 0);
         iRainhaPreta.setIconeBranco(new ImageIcon("imagens/Rainha-Pretas-Branco.png"));
         iRainhaPreta.setIconeMarrom(new ImageIcon("imagens/Rainha-Pretas-Marrom.png"));
         iRainhaPreta.mover(3, 0);
         TELA.getContentPane().add(iRainhaPreta.getImagem());
-        listaBrancas.add(rainhaPreta);
-
+        listaPretas.add(rainhaPreta);
+        
         TELA.getContentPane().add(iTabuleiro.getImagem());
         TELA.setSize(400, 400);
         TELA.setVisible(true);
@@ -271,13 +285,45 @@ public class Tabuleiro {
     public static void avaliarEventoTabuleiro(int x, int y) {
         moverPecaMarcada(x, y);
     }
+    
+    public static void marcarCasas(Peca p)
+    {
+    	int i = 0;
+    	for (int y = 0; y < 8; y++)
+    	{
+    		for (int x = 0; x < 8; x++)
+        	{
+        		if (p.movimentoOK(x, y))
+        		{
+        			marcadoresAzuis[i++].mover(x, y);
+        		}
+        	}
+    	}
+    }
+    
+    public static void desmarcarCasas()
+    {
+    	int i = 0;
+    	for (int x = 0; x < 8; x++)
+    	{
+    		for (int y = 0; y < 8; y++)
+        	{
+        		marcadoresAzuis[i++].mover(-1, -1);
+        	}
+    	}
+    }
 
     public static void marcarPeca(Peca p, IPeca ip) {
         if (iPecaMarcada != null)
-            iPecaMarcada.desmarcar();
+        {
+        	iPecaMarcada.desmarcar();
+        	desmarcarCasas();
+        }
+            
         pecaMarcada = p;
         iPecaMarcada = ip;
         iPecaMarcada.marcar();
+        marcarCasas(p);
 
     }
 
@@ -326,6 +372,11 @@ public class Tabuleiro {
                         iPecaMarcada.mover(5, 7);
                         pecaMarcada = null;
                         iPecaMarcada = null;
+                        desmarcarCasas();
+                        if (corJogadorAtual == Xadrez.corBRANCA)
+                            corJogadorAtual = Xadrez.corPRETA;
+                        else
+                            corJogadorAtual = Xadrez.corBRANCA;
                     }
                     //Verifica possibilidade de roque grande
                 } else if (x == 2 && y == 7) {
@@ -350,26 +401,34 @@ public class Tabuleiro {
                             iPecaMarcada.mover(3, 7);
                             pecaMarcada = null;
                             iPecaMarcada = null;
+                            desmarcarCasas();
+                            if (corJogadorAtual == Xadrez.corBRANCA)
+                                corJogadorAtual = Xadrez.corPRETA;
+                            else
+                                corJogadorAtual = Xadrez.corBRANCA;
                         }
                     }
                 } else {
                 	//Tenta mover o rei
-                	pecaMarcada.setMoveCont(pecaMarcada.getMoveCont()+1); //Aumenta a contagem de movimentos dessa peça
-                    pecaMarcada.mover(x, y);
-                    iPecaMarcada.desmarcar();
-                    iPecaMarcada.mover(x, y);
-                    pecaMarcada = null;
-                    iPecaMarcada = null;
-                    if (corJogadorAtual == Xadrez.corBRANCA)
-                        corJogadorAtual = Xadrez.corPRETA;
-                    else
-                        corJogadorAtual = Xadrez.corBRANCA;
+                	if (pecaMarcada.mover(x, y)){
+                		pecaMarcada.setMoveCont(pecaMarcada.getMoveCont()+1); //Aumenta a contagem de movimentos dessa peça           
+                        iPecaMarcada.desmarcar();
+                        desmarcarCasas();
+                        iPecaMarcada.mover(x, y);
+                        pecaMarcada = null;
+                        iPecaMarcada = null;
+                        if (corJogadorAtual == Xadrez.corBRANCA)
+                            corJogadorAtual = Xadrez.corPRETA;
+                        else
+                            corJogadorAtual = Xadrez.corBRANCA;
+                	}	
                 }
             } else {
             	//Movimento genérico de peça
                 if (pecaMarcada.mover(x, y)) {
                 	pecaMarcada.setMoveCont(pecaMarcada.getMoveCont()+1); //Aumenta a contagem de movimentos dessa peça
                     iPecaMarcada.desmarcar();
+                    desmarcarCasas();
                     iPecaMarcada.mover(x, y);
                     pecaMarcada = null;
                     iPecaMarcada = null;
