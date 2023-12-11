@@ -6,9 +6,9 @@ public abstract class Peca {
 	protected int cor;
 	protected int posX = -1;
 	protected int posY = -1;
-	protected int moveCont = -1;
+	protected int moveCont = 0;
 	
-	// Métodos
+	// Mï¿½todos
 	public int getCor() {
 		return cor;
 	}
