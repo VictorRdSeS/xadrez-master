@@ -19,7 +19,7 @@ public class Rei extends Peca {
             return true;
         }
         if (this.moveCont == 0) {
-            if ((x == posX + 2) || (x == posX - 3) && (y == posY)) ;
+            if ((x == posX + 2) || (x == posX - 2) && (y == posY)) ;
             return true;
         }
         return false;

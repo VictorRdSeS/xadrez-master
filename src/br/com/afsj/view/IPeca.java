@@ -16,7 +16,7 @@ public class IPeca {
 	protected JLabel imagem;
 	protected Peca p;
 	
-	// Métodos
+	// Mï¿½todos
 
 	public IPeca(Peca np) {
 		this.p = np;
@@ -59,7 +59,6 @@ public class IPeca {
 			imagem.setIcon(iconeMarrom);
 		imagem.setBounds(posXTela, posYTela, Xadrez.tamanhoQuadrado, Xadrez.tamanhoQuadrado);
 		//contagem de movimento
-		p.setMoveCont(p.getMoveCont()+1);
 		//System.out.println(p.getNome()+" movimentou "+p.getMoveCont());
 	}
 	

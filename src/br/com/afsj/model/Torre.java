@@ -5,17 +5,17 @@ public class Torre extends Peca {
     @Override
     public boolean movimentoOK(int x, int y) {
         if (posX == -1 && posY == -1) {
-            // A torre ainda não foi colocada no tabuleiro, pode se mover para qualquer posição
+            // A torre ainda nï¿½o foi colocada no tabuleiro, pode se mover para qualquer posiï¿½ï¿½o
             return true;
         }
 
-        // Verificar se o movimento é horizontal ou vertical
+        // Verificar se o movimento ï¿½ horizontal ou vertical
         if (x == posX || y == posY) {
-            // Movimento válido, pois é horizontal ou vertical
+            // Movimento valido, pois ï¿½ horizontal ou vertical
             return true;
         } else {
-            // Movimento inválido
-            System.out.println("Movimento inválido para a Torre.");
+            // Movimento invalido
+            System.out.println("Movimento invï¿½lido para a Torre.");
             return false;
         }
     }

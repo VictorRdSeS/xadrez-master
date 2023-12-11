@@ -120,7 +120,7 @@ public class Tabuleiro {
         TELA.getContentPane().add(iTorreBranca2.getImagem());
         listaBrancas.add(torreBranca2);
 
-        cavaloBranco1.setCor(Xadrez.corBRANCA);
+        /*cavaloBranco1.setCor(Xadrez.corBRANCA);
         cavaloBranco1.mover(1, 7);
         iCavaloBranco1.setIconeBranco(new ImageIcon("imagens/Cavalo-Brancas-Branco.png"));
         iCavaloBranco1.setIconeMarrom(new ImageIcon("imagens/Cavalo-Brancas-Marrom.png"));
@@ -150,7 +150,7 @@ public class Tabuleiro {
         iBispoBranco2.setIconeMarrom(new ImageIcon("imagens/Bispo-Brancas-Marrom.png"));
         iBispoBranco2.mover(5, 7);
         TELA.getContentPane().add(iBispoBranco2.getImagem());
-        listaBrancas.add(bispoBranco2);
+        listaBrancas.add(bispoBranco2);*/
 
         reiBranco.setCor(Xadrez.corBRANCA);
         reiBranco.mover(4, 7);
@@ -160,13 +160,13 @@ public class Tabuleiro {
         TELA.getContentPane().add(iReiBranco.getImagem());
         listaBrancas.add(reiBranco);
 
-        rainhaBranca.setCor(Xadrez.corBRANCA);
+        /*rainhaBranca.setCor(Xadrez.corBRANCA);
         rainhaBranca.mover(3, 7);
         iRainhaBranca.setIconeBranco(new ImageIcon("imagens/Rainha-Brancas-Branco.png"));
         iRainhaBranca.setIconeMarrom(new ImageIcon("imagens/Rainha-Brancas-Marrom.png"));
         iRainhaBranca.mover(3, 7);
         TELA.getContentPane().add(iRainhaBranca.getImagem());
-        listaBrancas.add(rainhaBranca);
+        listaBrancas.add(rainhaBranca);*/
 
         // Pretas
 
@@ -299,22 +299,27 @@ public class Tabuleiro {
 
     public static void moverPecaMarcada(int x, int y) {
         if (pecaMarcada == null) {
+        	//Pe√ßa n√£o pode ser marcada por ser do outro jogador
             if (corJogadorAtual == 0) {
-                System.out.println("Jogador peÁas pretas faÁa sua jogada.");
-            } else System.out.println("Jogador peÁas brancas faÁa sua jogada.");
+                System.out.println("Jogador pe√ßas pretas fa√ßa sua jogada.");
+            } else System.out.println("Jogador pe√ßas brancas fa√ßa sua jogada.");
         } else {
+        	//Verifica se a pe√ßa marcada √© o rei e se n√£o foi movido
             if (pecaMarcada.getPosX() == 4 && pecaMarcada.getPosY() == 7 && pecaMarcada.getMoveCont() == 0) {
+            	//Verifica possibilidade de roque pequeno
                 if (x == 6 && y == 7) {
                     if ((bispoBranco2.getPosX() == 5 && bispoBranco2.getPosY() == 7)) {
-                        System.out.println("Movimento n„o permitido pois tem peÁas no caminho.");
-                    } else {
+                        System.out.println("Movimento n√£o permitido pois tem pe√ßas no caminho.");
+                    } else if (torreBranca2.getMoveCont() == 0) {
                         System.out.println("Roque Pequeno");
+                        //Move o rei
                         pecaMarcada.mover(6, 7);
                         iPecaMarcada.desmarcar();
                         iPecaMarcada.mover(6, 7);
                         pecaMarcada = null;
                         iPecaMarcada = null;
 
+                        //Move a torre
                         marcarPeca(torreBranca2, iTorreBranca2);
                         pecaMarcada.mover(5, 7);
                         iPecaMarcada.desmarcar();
@@ -322,29 +327,34 @@ public class Tabuleiro {
                         pecaMarcada = null;
                         iPecaMarcada = null;
                     }
-                } else if (x == 1 && y == 7) {
+                    //Verifica possibilidade de roque grande
+                } else if (x == 2 && y == 7) {
                     if ((bispoBranco1.getPosX() == 2 && bispoBranco1.getPosY() == 7)) {
-                        System.out.println("Movimento n„o permitido pois tem peÁas no caminho.");
+                        System.out.println("Movimento n√£o permitido pois tem pe√ßas no caminho.");
                     } else {
                         if ((rainhaBranca.getPosX() == 3 && rainhaBranca.getPosY() == 7)) {
-                            System.out.println("Movimento n„o permitido pois tem peÁas no caminho.");
-                        } else {
+                            System.out.println("Movimento n√£o permitido pois tem pe√ßas no caminho.");
+                        } else if (torreBranca1.getMoveCont() == 0) {
                             System.out.println("Roque Grande");
-                            pecaMarcada.mover(1, 7);
-                            iPecaMarcada.desmarcar();
-                            iPecaMarcada.mover(1, 7);
-                            pecaMarcada = null;
-                            iPecaMarcada = null;
-
-                            marcarPeca(torreBranca1, iTorreBranca1);
+                            //Move o rei
                             pecaMarcada.mover(2, 7);
                             iPecaMarcada.desmarcar();
                             iPecaMarcada.mover(2, 7);
                             pecaMarcada = null;
                             iPecaMarcada = null;
+				
+                            //Move a torre
+                            marcarPeca(torreBranca1, iTorreBranca1);
+                            pecaMarcada.mover(3, 7);
+                            iPecaMarcada.desmarcar();
+                            iPecaMarcada.mover(3, 7);
+                            pecaMarcada = null;
+                            iPecaMarcada = null;
                         }
                     }
                 } else {
+                	//Tenta mover o rei
+                	pecaMarcada.setMoveCont(pecaMarcada.getMoveCont()+1); //Aumenta a contagem de movimentos dessa pe√ßa
                     pecaMarcada.mover(x, y);
                     iPecaMarcada.desmarcar();
                     iPecaMarcada.mover(x, y);
@@ -356,7 +366,9 @@ public class Tabuleiro {
                         corJogadorAtual = Xadrez.corBRANCA;
                 }
             } else {
+            	//Movimento gen√©rico de pe√ßa
                 if (pecaMarcada.mover(x, y)) {
+                	pecaMarcada.setMoveCont(pecaMarcada.getMoveCont()+1); //Aumenta a contagem de movimentos dessa pe√ßa
                     iPecaMarcada.desmarcar();
                     iPecaMarcada.mover(x, y);
                     pecaMarcada = null;
