@@ -18,10 +18,10 @@ public class Rei extends Peca {
         if ((x == posX - 1) && ((y == posY + 1) || (y == posY - 1))) {
             return true;
         }
-        if (this.moveCont == 0) {
-            if ((x == posX + 2) || (x == posX - 2) && (y == posY)) ;
-            return true;
-        }
+        /*if (this.moveCont == 0) {
+            if (((x == posX + 2) || (x == posX - 2)) && (y == posY))
+            	return true;
+        }*/
         return false;
     }
 

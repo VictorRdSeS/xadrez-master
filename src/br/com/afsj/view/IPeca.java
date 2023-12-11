@@ -16,7 +16,7 @@ public class IPeca {
 	protected JLabel imagem;
 	protected Peca p;
 	
-	// M�todos
+	// Metodos
 
 	public IPeca(Peca np) {
 		this.p = np;
