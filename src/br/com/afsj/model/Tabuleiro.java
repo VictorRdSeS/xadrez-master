@@ -3,9 +3,6 @@ package br.com.afsj.model;
 import br.com.afsj.control.Xadrez;
 import br.com.afsj.view.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.*;
 
 public class Tabuleiro {
@@ -104,7 +101,7 @@ public class Tabuleiro {
 			TELA.getContentPane().add(marcadoresAzuis[i].getImagem());
         }
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 4; i++) {
             peoesBrancos[i] = new Peao();
             peoesBrancos[i].setCor(Xadrez.corBRANCA);
             peoesBrancos[i].mover(i, 6);
@@ -134,7 +131,7 @@ public class Tabuleiro {
         TELA.getContentPane().add(iTorreBranca2.getImagem());
         listaBrancas.add(torreBranca2);
 
-        cavaloBranco1.setCor(Xadrez.corBRANCA);
+        /*cavaloBranco1.setCor(Xadrez.corBRANCA);
         cavaloBranco1.mover(1, 7);
         iCavaloBranco1.setIconeBranco(new ImageIcon("imagens/Cavalo-Brancas-Branco.png"));
         iCavaloBranco1.setIconeMarrom(new ImageIcon("imagens/Cavalo-Brancas-Marrom.png"));
@@ -164,7 +161,7 @@ public class Tabuleiro {
         iBispoBranco2.setIconeMarrom(new ImageIcon("imagens/Bispo-Brancas-Marrom.png"));
         iBispoBranco2.mover(5, 7);
         TELA.getContentPane().add(iBispoBranco2.getImagem());
-        listaBrancas.add(bispoBranco2);
+        listaBrancas.add(bispoBranco2);*/
 
         reiBranco.setCor(Xadrez.corBRANCA);
         reiBranco.mover(4, 7);
@@ -174,17 +171,17 @@ public class Tabuleiro {
         TELA.getContentPane().add(iReiBranco.getImagem());
         listaBrancas.add(reiBranco);
 
-        rainhaBranca.setCor(Xadrez.corBRANCA);
+        /*rainhaBranca.setCor(Xadrez.corBRANCA);
         rainhaBranca.mover(3, 7);
         iRainhaBranca.setIconeBranco(new ImageIcon("imagens/Rainha-Brancas-Branco.png"));
         iRainhaBranca.setIconeMarrom(new ImageIcon("imagens/Rainha-Brancas-Marrom.png"));
         iRainhaBranca.mover(3, 7);
         TELA.getContentPane().add(iRainhaBranca.getImagem());
-        listaBrancas.add(rainhaBranca);
+        listaBrancas.add(rainhaBranca);*/
 
         // Pretas
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 4; i++) {
             peoesPretos[i] = new Peao();
             peoesPretos[i].setCor(Xadrez.corPRETA);
             peoesPretos[i].mover(i, 1);
@@ -221,7 +218,7 @@ public class Tabuleiro {
         TELA.getContentPane().add(iTorrePreta2.getImagem());
         listaPretas.add(torrePreta2);
 
-        cavaloPreto1.setCor(Xadrez.corPRETA);
+        /*cavaloPreto1.setCor(Xadrez.corPRETA);
         cavaloPreto1.mover(1, 0);
         iCavaloPreto1.setIconeBranco(new ImageIcon("imagens/Cavalo-Pretas-Branco.png"));
         iCavaloPreto1.setIconeMarrom(new ImageIcon("imagens/Cavalo-Pretas-Marrom.png"));
@@ -251,7 +248,7 @@ public class Tabuleiro {
         iBispoPreto2.setIconeMarrom(new ImageIcon("imagens/Bispo-Pretas-Marrom.png"));
         iBispoPreto2.mover(5, 0);
         TELA.getContentPane().add(iBispoPreto2.getImagem());
-        listaPretas.add(bispoPreto2);
+        listaPretas.add(bispoPreto2);*/
 
         reiPreto.setCor(Xadrez.corPRETA);
         reiPreto.mover(4, 0);
@@ -261,13 +258,13 @@ public class Tabuleiro {
         TELA.getContentPane().add(iReiPreto.getImagem());
         listaPretas.add(reiPreto);
 
-        rainhaPreta.setCor(Xadrez.corPRETA);//branco = 1 preto = 0
+        /*rainhaPreta.setCor(Xadrez.corPRETA);//branco = 1 preto = 0
         rainhaPreta.mover(3, 0);
         iRainhaPreta.setIconeBranco(new ImageIcon("imagens/Rainha-Pretas-Branco.png"));
         iRainhaPreta.setIconeMarrom(new ImageIcon("imagens/Rainha-Pretas-Marrom.png"));
         iRainhaPreta.mover(3, 0);
         TELA.getContentPane().add(iRainhaPreta.getImagem());
-        listaPretas.add(rainhaPreta);
+        listaPretas.add(rainhaPreta);*/
         
         TELA.getContentPane().add(iTabuleiro.getImagem());
         TELA.setSize(400, 400);
@@ -286,6 +283,101 @@ public class Tabuleiro {
         moverPecaMarcada(x, y);
     }
     
+    public static int casaLivre(int x, int y) // 0 = Livre, 1 = Peca inimiga, 2 = Peca aliada
+    {
+    	for (int i = 0; i < listaBrancas.size(); i++)
+		{
+    		if (listaBrancas.get(i).getPosX() == x && listaBrancas.get(i).getPosY() == y)
+    		{
+    			if (pecaMarcada.getCor() == Xadrez.corBRANCA) return 2;
+    			else return 1;
+    		}
+    			
+		}
+    	for (int i = 0; i < listaPretas.size(); i++)
+		{
+    		if (listaPretas.get(i).getPosX() == x && listaPretas.get(i).getPosY() == y)
+    		{
+    			if (pecaMarcada.getCor() == Xadrez.corPRETA) return 2;
+    			else return 1;
+    		}
+    			
+		}
+    	
+    	return 0;
+    }
+    
+    public static boolean avaliarCasa(Peca p, int x, int y)
+    { 	
+    	if(p instanceof Rei)
+    	{
+    		if(p.getCor() == Xadrez.corBRANCA)
+    		{
+    			for (int i = 0; i < listaPretas.size(); i++)
+    			{
+    				if(avaliarMovimento(listaPretas.get(i), x, y) && listaPretas.get(i).capturar(x, y))
+        			{
+    					System.out.println("Movimento inválido para o Rei - XEQUE");
+    					return false;
+        			}				
+    			}
+    		}   			
+    	}
+    	
+    	return true;
+    }
+    
+    public static boolean avaliarMovimento(Peca p, int x, int y) // Serve para torres, rainha e bispo
+    {
+    	int distancia = 0;
+    	
+    	if (p instanceof Torre)
+    	{
+    		if(p.getPosX() < x)
+			{
+    			distancia = x - p.getPosX();
+    			for (int i = 1; i < distancia; i++)
+    			{
+    				if(casaLivre(p.getPosX() + i, y) == 2 || casaLivre(p.getPosX() + i, y) == 1)
+    					return false;
+    			}
+			}
+    		
+    		else if(p.getPosX() > x)
+			{
+    			distancia = p.getPosX() - x;
+    			for (int i = 1; i < distancia; i++)
+    			{
+    				if (casaLivre(p.getPosX() - i, y) == 2 || casaLivre(p.getPosX() - i, y) == 1)
+    					return false;
+    			}
+			}
+    		else if(p.getPosY() < y)
+			{
+    			distancia = y - p.getPosY();
+    			for (int i = 1; i < distancia; i++)
+    			{
+    				if (casaLivre(x, p.getPosY() + i) == 2 || casaLivre(x, p.getPosY() + i) == 1)
+    					return false;
+    			}
+			}
+    		
+    		else if(p.getPosY() > y)
+			{
+    			distancia = p.getPosY() - y;
+    			for (int i = 1; i < distancia; i++)
+    			{
+    				if (casaLivre(x, p.getPosY() - i) == 2 || casaLivre(x, p.getPosY() - i) == 1)
+    					return false;
+    			}
+			}
+    		
+    		return p.movimentoOK(x, y);
+    	}
+    	
+    	return true;
+    }
+    
     public static void marcarCasas(Peca p)
     {
     	int i = 0;
@@ -293,9 +385,9 @@ public class Tabuleiro {
     	{
     		for (int x = 0; x < 8; x++)
         	{
-        		if (p.movimentoOK(x, y))
+        		if (avaliarMovimento(p, x, y) && p.movimentoOK(x, y))
         		{
-        			marcadoresAzuis[i++].mover(x, y);
+        			if (casaLivre(x, y) == 0 || casaLivre(x, y) == 1)marcadoresAzuis[i++].mover(x, y);
         		}
         	}
     	}
@@ -328,11 +420,13 @@ public class Tabuleiro {
     }
 
     public static void capturarPeca(Peca p, IPeca ip) {
-        if (pecaMarcada.capturar(p.getPosX(), p.getPosY())) {
+        if (avaliarMovimento(pecaMarcada, p.getPosX(), p.getPosY()) && pecaMarcada.capturar(p.getPosX(), p.getPosY())) {
+        	desmarcarCasas();
             ip.remover();
             TELA.getContentPane().remove(ip.getImagem());
             iPecaMarcada.desmarcar();
             iPecaMarcada.mover(p.getPosX(), p.getPosY());
+            pecaMarcada.moverCaptura(p.getPosX(), p.getPosY());
             p.remover();
             pecaMarcada = null;
             iPecaMarcada = null;
@@ -357,6 +451,11 @@ public class Tabuleiro {
                     if ((bispoBranco2.getPosX() == 5 && bispoBranco2.getPosY() == 7)) {
                         System.out.println("Movimento não permitido pois tem peças no caminho.");
                     } else if (torreBranca2.getMoveCont() == 0) {
+                    	if (!avaliarCasa(pecaMarcada, 5, 7) || !avaliarCasa(pecaMarcada, 6, 7)) 
+                    	{
+                    		//Verificando possibilidade de xeque
+                    		return;
+                    	}
                         System.out.println("Roque Pequeno");
                         //Move o rei
                         pecaMarcada.mover(6, 7);
@@ -386,6 +485,11 @@ public class Tabuleiro {
                         if ((rainhaBranca.getPosX() == 3 && rainhaBranca.getPosY() == 7)) {
                             System.out.println("Movimento não permitido pois tem peças no caminho.");
                         } else if (torreBranca1.getMoveCont() == 0) {
+                        	if (!avaliarCasa(pecaMarcada, 2, 7) || !avaliarCasa(pecaMarcada, 3, 7)) 
+                        	{
+                        		//Verificando possibilidade de xeque
+                        		return;
+                        	}
                             System.out.println("Roque Grande");
                             //Move o rei
                             pecaMarcada.mover(2, 7);
@@ -411,6 +515,10 @@ public class Tabuleiro {
                 } else {
                 	//Tenta mover o rei
                 	if (pecaMarcada.mover(x, y)){
+                		if (!avaliarCasa(pecaMarcada, x, y))
+                    	{
+                    		return;
+                    	}
                 		pecaMarcada.setMoveCont(pecaMarcada.getMoveCont()+1); //Aumenta a contagem de movimentos dessa peça           
                         iPecaMarcada.desmarcar();
                         desmarcarCasas();
@@ -425,7 +533,11 @@ public class Tabuleiro {
                 }
             } else {
             	//Movimento genérico de peça
-                if (pecaMarcada.mover(x, y)) {
+                if (avaliarMovimento(pecaMarcada, x, y) && pecaMarcada.mover(x, y)) {
+                	if (!avaliarCasa(pecaMarcada, x, y))
+                	{
+                		return;
+                	}
                 	pecaMarcada.setMoveCont(pecaMarcada.getMoveCont()+1); //Aumenta a contagem de movimentos dessa peça
                     iPecaMarcada.desmarcar();
                     desmarcarCasas();
