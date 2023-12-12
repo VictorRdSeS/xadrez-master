@@ -34,4 +34,8 @@ public class ITabuleiro {
 		return imagem;
 	}
 
+    public static int getPosicaoX(int x) {
+        return 0;
+    }
+
 }

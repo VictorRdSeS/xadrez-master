@@ -51,4 +51,6 @@ public abstract class Peca {
 	public void moverCaptura(int x, int y) {
 		mover(x, y);
 	}
+	public void onPecaClicada() {
+	}
 }
