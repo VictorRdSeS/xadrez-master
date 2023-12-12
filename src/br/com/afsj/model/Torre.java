@@ -15,7 +15,6 @@ public class Torre extends Peca {
             return true;
         } else {
             // Movimento invalido
-            System.out.println("Movimento inv�lido para a Torre.");
             return false;
         }
     }

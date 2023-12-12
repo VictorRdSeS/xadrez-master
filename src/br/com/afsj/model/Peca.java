@@ -48,4 +48,7 @@ public abstract class Peca {
 	public boolean capturar(int x, int y) {
 		return mover(x,y);
 	}
+	public void moverCaptura(int x, int y) {
+		mover(x, y);
+	}
 }

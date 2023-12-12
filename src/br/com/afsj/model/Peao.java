@@ -26,23 +26,23 @@ public class Peao extends Peca {
 	
 	@Override
 	public boolean capturar(int x, int y) {
-
-
 		if (cor == Xadrez.corBRANCA) {
 			if ( (x == posX-1 || x == posX+1) && (y == posY-1) ) {
-				posX = x;
-				posY = y;
 				return true ;
 			}
 		}
 
 		if (cor == Xadrez.corPRETA) {
 			if ( (x == posX-1 || x == posX+1) && (y == posY+1) ) {
-				posX = x;
-				posY = y;
 				return true ;
 			}
 		}
 		return false;		
+	}
+	
+	public void moverCaptura(int x, int y)
+	{
+		posX = x;
+		posY = y;
 	}
 }
