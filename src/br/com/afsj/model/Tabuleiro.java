@@ -104,7 +104,7 @@ public class Tabuleiro {
 			TELA.getContentPane().add(marcadoresAzuis[i].getImagem());
         }
 
-        /*for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             peoesBrancos[i] = new Peao();
             peoesBrancos[i].setCor(Xadrez.corBRANCA);
             peoesBrancos[i].mover(i, 6);
@@ -116,7 +116,7 @@ public class Tabuleiro {
 
             TELA.getContentPane().add(iPeoesBrancos[i].getImagem());
             listaBrancas.add(peoesBrancos[i]);
-        }*/
+        }
 
         torreBranca1.setCor(Xadrez.corBRANCA);
         torreBranca1.mover(0, 7);
@@ -184,7 +184,7 @@ public class Tabuleiro {
 
         // Pretas
 
-        /*for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             peoesPretos[i] = new Peao();
             peoesPretos[i].setCor(Xadrez.corPRETA);
             peoesPretos[i].mover(i, 1);
@@ -196,7 +196,7 @@ public class Tabuleiro {
 
             TELA.getContentPane().add(iPeoesPretos[i].getImagem());
             listaPretas.add(peoesPretos[i]);
-        }*/
+        }
         //peaoPreto1.setCor(Xadrez.corPRETA);
         //peaoPreto1.mover(0, 1);
         //iPeaoPreto1.setIconeBranco(new ImageIcon("imagens/Peao-Pretas-Branco.png"));
@@ -368,14 +368,34 @@ public class Tabuleiro {
     }
 
     public static void capturarPeca(Peca p, IPeca ip) {
+    	int oldX = pecaMarcada.getPosX();
+    	int oldY = pecaMarcada.getPosY();
+    	
+    	int oldOX = p.getPosX();
+    	int oldOY = p.getPosY();
+    	
         if (pecaMarcada.capturar(p.getPosX(), p.getPosY())) {
+        	pecaMarcada.moverIrrestrito(p.getPosX(), p.getPosY());
+            p.remover();
+
+            //Verifica se a captura mantém ou salva o rei do xeque
+        	Rei rei = (corJogadorAtual == Xadrez.corBRANCA) ? reiBranco : reiPreto;
+        	List<Peca> pecasDoOponente = (corJogadorAtual == Xadrez.corBRANCA) ? listaPretas : listaBrancas;
+        	
+        	if (rei.reiEmCheck(pecasDoOponente, rei)) {
+        		// Desfaz o movimento
+        		pecaMarcada.moverIrrestrito(oldX, oldY);
+        		p.moverIrrestrito(oldOX, oldOY);
+        		System.out.println("Movimento inválido. Rei ficaria em xeque.");
+        		return;
+        	}
+        	
+        	//Caso não haja perigo para o rei, o processo continua normalmente
         	desmarcarCasas();
-            ip.remover();
+        	ip.remover();
             TELA.getContentPane().remove(ip.getImagem());
             iPecaMarcada.desmarcar();
-            iPecaMarcada.mover(p.getPosX(), p.getPosY());
-            pecaMarcada.moverIrrestrito(p.getPosX(), p.getPosY());
-            p.remover();
+            iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
             pecaMarcada = null;
             iPecaMarcada = null;
             if (corJogadorAtual == Xadrez.corBRANCA)
@@ -538,7 +558,7 @@ public class Tabuleiro {
         // Verifica se o movimento coloca o rei em xeque
         	if (rei.reiEmCheck(pecasDoOponente, rei)) {
         		// Desfaz o movimento
-        		pecaMarcada.mover(oldX, oldY);
+        		pecaMarcada.moverIrrestrito(oldX, oldY);
         		System.out.println("Movimento inválido. Rei ficaria em xeque.");
         		return;
         	}
