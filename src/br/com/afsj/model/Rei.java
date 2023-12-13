@@ -26,15 +26,10 @@ public class Rei extends Peca {
         // Verifica se alguma peça do oponente pode capturar o rei
         for (Peca peca : pecas) {
             if (peca.getCor() != rei.getCor() && rei != null)
-            {	
-            	if (peca instanceof Peao && peca.capturar(rei.getPosX(), rei.getPosY()))
-            	{
-            		return true;
-            	}
-            	
-                if (peca.movimentoOK(rei.getPosX(), rei.getPosY())) {
+            {	      	
+            	if (peca.capturarOK(rei.getPosX(), rei.getPosY())) {
                 	return true;
-                }   
+                }
             }
         }
 

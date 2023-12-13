@@ -104,7 +104,7 @@ public class Tabuleiro {
 			TELA.getContentPane().add(marcadoresAzuis[i].getImagem());
         }
 
-        for (int i = 0; i < 8; i++) {
+        /*for (int i = 0; i < 8; i++) {
             peoesBrancos[i] = new Peao();
             peoesBrancos[i].setCor(Xadrez.corBRANCA);
             peoesBrancos[i].mover(i, 6);
@@ -116,7 +116,7 @@ public class Tabuleiro {
 
             TELA.getContentPane().add(iPeoesBrancos[i].getImagem());
             listaBrancas.add(peoesBrancos[i]);
-        }
+        }*/
 
         torreBranca1.setCor(Xadrez.corBRANCA);
         torreBranca1.mover(0, 7);
@@ -184,7 +184,7 @@ public class Tabuleiro {
 
         // Pretas
 
-        for (int i = 0; i < 8; i++) {
+        /*for (int i = 0; i < 8; i++) {
             peoesPretos[i] = new Peao();
             peoesPretos[i].setCor(Xadrez.corPRETA);
             peoesPretos[i].mover(i, 1);
@@ -196,7 +196,7 @@ public class Tabuleiro {
 
             TELA.getContentPane().add(iPeoesPretos[i].getImagem());
             listaPretas.add(peoesPretos[i]);
-        }
+        }*/
         //peaoPreto1.setCor(Xadrez.corPRETA);
         //peaoPreto1.mover(0, 1);
         //iPeaoPreto1.setIconeBranco(new ImageIcon("imagens/Peao-Pretas-Branco.png"));
