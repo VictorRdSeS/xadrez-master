@@ -426,132 +426,11 @@ public class Tabuleiro {
 
     	Rei rei = (corJogadorAtual == Xadrez.corBRANCA) ? reiBranco : reiPreto;
     	List<Peca> pecasDoOponente = (corJogadorAtual == Xadrez.corBRANCA) ? listaPretas : listaBrancas;
-    	List<Peca> todasPecas = new ArrayList<Peca>();
-    	todasPecas.addAll(listaBrancas);
-    	todasPecas.addAll(listaPretas);
     	
     	//Verifica se a peça marcada é o rei e se não foi movido
        	if (pecaMarcada instanceof Rei && pecaMarcada.getMoveCont() == 0) {
-        	//Verifica possibilidade de roque pequeno
-            if (x == 6 && y == rei.getPosY()) {
-            	for (Peca peca : todasPecas)
-            	{
-            		if ((peca.getPosX() == 5 && peca.getPosY() == rei.getPosY())) {
-                        System.out.println("Movimento não permitido pois tem peças no caminho.");
-                        return;
-            		}
-            	}
-            	for (Peca peca : todasPecas)
-            	{
-            		if (peca instanceof Torre && peca.getPosX() == 7 && peca.getMoveCont() == 0) {
-                    	if (pecaMarcada.mover(pecaMarcada.getPosX()+1, pecaMarcada.getPosY()))
-                    	{
-                    		if (rei.reiEmCheck(pecasDoOponente, rei)) {
-                				// Desfaz o movimento
-                				pecaMarcada.moverIrrestrito(oldX, oldY);
-                				System.out.println("Movimento inválido. Rei ficaria em xeque.");
-                				return;
-                			}
-                    	}
-                    	
-                    	if (pecaMarcada.mover(pecaMarcada.getPosX()+1, pecaMarcada.getPosY()))
-                    	{
-                    		if (rei.reiEmCheck(pecasDoOponente, rei)) {
-                				// Desfaz o movimento
-                				pecaMarcada.moverIrrestrito(oldX, oldY);
-                				System.out.println("Movimento inválido. Rei ficaria em xeque.");
-                				return;
-                			}
-                    	}
-                        	
-                        System.out.println("Roque Pequeno");
-                        
-                        iPecaMarcada.desmarcar();
-                        iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
-                        pecaMarcada = null;
-                        iPecaMarcada = null;
-
-                        //Move a torre
-                        if (peca.getCor() == Xadrez.corBRANCA)
-                        	marcarPeca(peca, iTorreBranca2);
-                        else
-                        	marcarPeca(peca, iTorrePreta2);
-                        pecaMarcada.mover(pecaMarcada.getPosX()-2, pecaMarcada.getPosY());
-                        iPecaMarcada.desmarcar();
-                        iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
-                        iPecaMarcada = null;
-                        desmarcarCasas();
-                        if (corJogadorAtual == Xadrez.corBRANCA)
-                            corJogadorAtual = Xadrez.corPRETA;
-                        else
-                            corJogadorAtual = Xadrez.corBRANCA;
-                        return;
-                    }
-                    
-                }
-            	//Verifica possibilidade de roque grande 
-            } else if (x == 2 && y == rei.getPosY()) {
-            	for (Peca peca : todasPecas)
-            	{
-            		if ((peca.getPosX() == 1 && peca.getPosY() == rei.getPosY())) {
-                        System.out.println("Movimento não permitido pois tem peças no caminho.");
-                        return;
-            		}
-            		if ((peca.getPosX() == 3 && peca.getPosY() == rei.getPosY())) {
-                        System.out.println("Movimento não permitido pois tem peças no caminho.");
-                        return;
-            		}
-            	}
-            	for (Peca peca : todasPecas)
-                {
-            		if (peca instanceof Torre && peca.getPosX() == 0 && peca.getMoveCont() == 0) {
-            			if (pecaMarcada.mover(pecaMarcada.getPosX()-1, pecaMarcada.getPosY()))
-                    	{
-                    		if (rei.reiEmCheck(pecasDoOponente, rei)) {
-                				// Desfaz o movimento
-                				pecaMarcada.moverIrrestrito(oldX, oldY);
-                				System.out.println("Movimento inválido. Rei ficaria em xeque.");
-                				return;
-                			}
-                    	}
-                    	
-                    	if (pecaMarcada.mover(pecaMarcada.getPosX()-1, pecaMarcada.getPosY()))
-                    	{
-                    		if (rei.reiEmCheck(pecasDoOponente, rei)) {
-                				// Desfaz o movimento
-                				pecaMarcada.moverIrrestrito(oldX, oldY);
-                				System.out.println("Movimento inválido. Rei ficaria em xeque.");
-                				return;
-                			}
-                    	}
-             
-                        System.out.println("Roque Grande");
-                        //Move o rei
-                        iPecaMarcada.desmarcar();
-                        iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
-                        pecaMarcada = null;
-                        iPecaMarcada = null;
-			
-                        //Move a torre
-                        if (peca.getCor() == Xadrez.corBRANCA)
-                        	marcarPeca(peca, iTorreBranca1);
-                        else
-                        	marcarPeca(peca, iTorrePreta1);
-                        pecaMarcada.mover(pecaMarcada.getPosX()+3, pecaMarcada.getPosY());
-                        iPecaMarcada.desmarcar();
-                        iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
-                        pecaMarcada = null;
-                        iPecaMarcada = null;
-                        desmarcarCasas();
-                        if (corJogadorAtual == Xadrez.corBRANCA)
-                            corJogadorAtual = Xadrez.corPRETA;
-                        else
-                            corJogadorAtual = Xadrez.corBRANCA;
-                        return;
-            		}
-                }
-            
-            }
+       		//Tenta realizar o movimento roque
+        	movimentoRoque(rei, pecasDoOponente, x, y, oldX, oldY);
         }
         //Movimento genérico de peça
         if (pecaMarcada.mover(x, y)) {        
@@ -573,6 +452,134 @@ public class Tabuleiro {
         		corJogadorAtual = Xadrez.corPRETA;
         	else
         		corJogadorAtual = Xadrez.corBRANCA;	       
+        }
+    }
+    
+    public static void movimentoRoque(Rei rei, List<Peca> pecasDoOponente, int x, int y, int oldX, int oldY)
+    {
+    	List<Peca> todasPecas = new ArrayList<Peca>();
+    	todasPecas.addAll(listaBrancas);
+    	todasPecas.addAll(listaPretas);
+    	
+    	//Verifica possibilidade de roque pequeno
+        if (x == 6 && y == rei.getPosY()) {
+        	for (Peca peca : todasPecas)
+        	{
+        		if ((peca.getPosX() == 5 && peca.getPosY() == rei.getPosY())) {
+                    System.out.println("Movimento não permitido pois tem peças no caminho.");
+                    return;
+        		}
+        	}
+        	for (Peca peca : todasPecas)
+        	{
+        		if (peca instanceof Torre && peca.getPosX() == 7 && peca.getMoveCont() == 0) {
+                	if (pecaMarcada.mover(pecaMarcada.getPosX()+1, pecaMarcada.getPosY()))
+                	{
+                		if (rei.reiEmCheck(pecasDoOponente, rei)) {
+            				// Desfaz o movimento
+            				pecaMarcada.moverIrrestrito(oldX, oldY);
+            				System.out.println("Movimento inválido. Rei ficaria em xeque.");
+            				return;
+            			}
+                	}
+                	
+                	if (pecaMarcada.mover(pecaMarcada.getPosX()+1, pecaMarcada.getPosY()))
+                	{
+                		if (rei.reiEmCheck(pecasDoOponente, rei)) {
+            				// Desfaz o movimento
+            				pecaMarcada.moverIrrestrito(oldX, oldY);
+            				System.out.println("Movimento inválido. Rei ficaria em xeque.");
+            				return;
+            			}
+                	}
+                    	
+                    System.out.println("Roque Pequeno");
+                    
+                    iPecaMarcada.desmarcar();
+                    iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
+                    pecaMarcada = null;
+                    iPecaMarcada = null;
+
+                    //Move a torre
+                    if (peca.getCor() == Xadrez.corBRANCA)
+                    	marcarPeca(peca, iTorreBranca2);
+                    else
+                    	marcarPeca(peca, iTorrePreta2);
+                    pecaMarcada.mover(pecaMarcada.getPosX()-2, pecaMarcada.getPosY());
+                    iPecaMarcada.desmarcar();
+                    iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
+                    iPecaMarcada = null;
+                    desmarcarCasas();
+                    if (corJogadorAtual == Xadrez.corBRANCA)
+                        corJogadorAtual = Xadrez.corPRETA;
+                    else
+                        corJogadorAtual = Xadrez.corBRANCA;
+                    return;
+                }
+                
+            }
+        	//Verifica possibilidade de roque grande 
+        } else if (x == 2 && y == rei.getPosY()) {
+        	for (Peca peca : todasPecas)
+        	{
+        		if ((peca.getPosX() == 1 && peca.getPosY() == rei.getPosY())) {
+                    System.out.println("Movimento não permitido pois tem peças no caminho.");
+                    return;
+        		}
+        		if ((peca.getPosX() == 3 && peca.getPosY() == rei.getPosY())) {
+                    System.out.println("Movimento não permitido pois tem peças no caminho.");
+                    return;
+        		}
+        	}
+        	for (Peca peca : todasPecas)
+            {
+        		if (peca instanceof Torre && peca.getPosX() == 0 && peca.getMoveCont() == 0) {
+        			if (pecaMarcada.mover(pecaMarcada.getPosX()-1, pecaMarcada.getPosY()))
+                	{
+                		if (rei.reiEmCheck(pecasDoOponente, rei)) {
+            				// Desfaz o movimento
+            				pecaMarcada.moverIrrestrito(oldX, oldY);
+            				System.out.println("Movimento inválido. Rei ficaria em xeque.");
+            				return;
+            			}
+                	}
+                	
+                	if (pecaMarcada.mover(pecaMarcada.getPosX()-1, pecaMarcada.getPosY()))
+                	{
+                		if (rei.reiEmCheck(pecasDoOponente, rei)) {
+            				// Desfaz o movimento
+            				pecaMarcada.moverIrrestrito(oldX, oldY);
+            				System.out.println("Movimento inválido. Rei ficaria em xeque.");
+            				return;
+            			}
+                	}
+         
+                    System.out.println("Roque Grande");
+                    //Move o rei
+                    iPecaMarcada.desmarcar();
+                    iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
+                    pecaMarcada = null;
+                    iPecaMarcada = null;
+		
+                    //Move a torre
+                    if (peca.getCor() == Xadrez.corBRANCA)
+                    	marcarPeca(peca, iTorreBranca1);
+                    else
+                    	marcarPeca(peca, iTorrePreta1);
+                    pecaMarcada.mover(pecaMarcada.getPosX()+3, pecaMarcada.getPosY());
+                    iPecaMarcada.desmarcar();
+                    iPecaMarcada.mover(pecaMarcada.getPosX(), pecaMarcada.getPosY());
+                    pecaMarcada = null;
+                    iPecaMarcada = null;
+                    desmarcarCasas();
+                    if (corJogadorAtual == Xadrez.corBRANCA)
+                        corJogadorAtual = Xadrez.corPRETA;
+                    else
+                        corJogadorAtual = Xadrez.corBRANCA;
+                    return;
+        		}
+            }
+        
         }
     }
 }
