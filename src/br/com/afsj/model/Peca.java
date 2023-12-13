@@ -42,8 +42,8 @@ public abstract class Peca {
 	public abstract boolean movimentoOK(int x, int y);
 	
 	public void remover() {
-		this.posX = -1;
-		this.posY = -1;
+		this.posX = -2;
+		this.posY = -2;
 	}
 	public boolean capturar(int x, int y) {
 		return mover(x,y);

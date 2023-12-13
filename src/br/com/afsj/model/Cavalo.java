@@ -1,7 +1,5 @@
 package br.com.afsj.model;
 
-import br.com.afsj.model.Peca;
-
 public class Cavalo extends Peca {
 	
 	@Override
