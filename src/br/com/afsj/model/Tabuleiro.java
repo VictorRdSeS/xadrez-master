@@ -3,6 +3,7 @@ package br.com.afsj.model;
 import br.com.afsj.control.Xadrez;
 import br.com.afsj.view.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -389,20 +390,22 @@ public class Tabuleiro {
 
     	Rei rei = (corJogadorAtual == Xadrez.corBRANCA) ? reiBranco : reiPreto;
     	List<Peca> pecasDoOponente = (corJogadorAtual == Xadrez.corBRANCA) ? listaPretas : listaBrancas;
-    	List<Peca> pecasAliadas = (corJogadorAtual == Xadrez.corBRANCA) ? listaBrancas : listaPretas;
+    	List<Peca> todasPecas = new ArrayList<Peca>();
+    	todasPecas.addAll(listaBrancas);
+    	todasPecas.addAll(listaPretas);
     	
     	//Verifica se a peça marcada é o rei e se não foi movido
        	if (pecaMarcada instanceof Rei && pecaMarcada.getMoveCont() == 0) {
         	//Verifica possibilidade de roque pequeno
             if (x == 6 && y == rei.getPosY()) {
-            	for (Peca peca : pecasAliadas)
+            	for (Peca peca : todasPecas)
             	{
             		if ((peca.getPosX() == 5 && peca.getPosY() == rei.getPosY())) {
                         System.out.println("Movimento não permitido pois tem peças no caminho.");
                         return;
             		}
             	}
-            	for (Peca peca : pecasAliadas)
+            	for (Peca peca : todasPecas)
             	{
             		if (peca instanceof Torre && peca.getPosX() == 7 && peca.getMoveCont() == 0) {
                     	if (pecaMarcada.mover(pecaMarcada.getPosX()+1, pecaMarcada.getPosY()))
@@ -452,7 +455,7 @@ public class Tabuleiro {
                 }
             	//Verifica possibilidade de roque grande 
             } else if (x == 2 && y == rei.getPosY()) {
-            	for (Peca peca : pecasAliadas)
+            	for (Peca peca : todasPecas)
             	{
             		if ((peca.getPosX() == 1 && peca.getPosY() == rei.getPosY())) {
                         System.out.println("Movimento não permitido pois tem peças no caminho.");
@@ -463,7 +466,7 @@ public class Tabuleiro {
                         return;
             		}
             	}
-            	for (Peca peca : pecasAliadas)
+            	for (Peca peca : todasPecas)
                 {
             		if (peca instanceof Torre && peca.getPosX() == 0 && peca.getMoveCont() == 0) {
             			if (pecaMarcada.mover(pecaMarcada.getPosX()-1, pecaMarcada.getPosY()))
